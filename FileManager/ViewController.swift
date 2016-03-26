@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         downloadController.dowloadFileWithURL(downloadURL) {
             (url: NSURL, dbkey: String) -> Void in
             
-            print( __FUNCTION__ + " complete\n")
+            print(#function + " complete\n")
             
             dispatch_async(dispatch_get_main_queue(),{
                 self.downloadButton.selected = false
@@ -103,18 +103,10 @@ class ViewController: UIViewController {
 
             sender.selected = true
             
-            let option = 3
+            // with progress
+            progressView.progress = 0.0
+            downloadWithProgressAndCompletion(downloadURL)
 
-            if option == 1 {
-                downloadController.dowloadFileWithURL(downloadURL)
-            } else if option == 2 {
-                downloadWithCompletion(downloadURL)
-            } else {
-                // with progress
-                progressView.progress = 0.0
-
-                downloadWithProgressAndCompletion(downloadURL)
-            }
             
         } else {
             downloadController.cancel()
@@ -123,6 +115,18 @@ class ViewController: UIViewController {
     }
     
 }
+
+//            let option = 3
+//            if option == 1 {
+//                downloadController.dowloadFileWithURL(downloadURL)
+//            } else if option == 2 {
+//                downloadWithCompletion(downloadURL)
+//            } else {
+//                // with progress
+//                progressView.progress = 0.0
+//                downloadWithProgressAndCompletion(downloadURL)
+//            }
+
 
 // https ://upload.wikimedia.org/wikipedia/commons/5/58/Sunset_2007-1.jpg
 // http ://www.nasa.gov/sites/default/files/thumbnails/image/nh-psychedelic-pluto_pca.png

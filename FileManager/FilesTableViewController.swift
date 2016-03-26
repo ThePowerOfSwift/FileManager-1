@@ -10,12 +10,12 @@ import UIKit
 
 class FilesTableViewController: UITableViewController {
     
-    struct FileInfo {
-        var name: String
-        var date: NSDate
-        var url: NSURL
-        var size: UInt64
-    }
+//    struct FileInfo {
+//        var name: String
+//        var date: NSDate
+//        var url: NSURL
+//        var size: UInt64
+//    }
 
     
     struct CellFileInfo {
@@ -29,6 +29,8 @@ class FilesTableViewController: UITableViewController {
 //    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("meals")
     
     
+    let df = NSDateFormatter()
+
     // MARK: Properties
     
     var fileSections: [[FileInfo]] = []
@@ -40,17 +42,26 @@ class FilesTableViewController: UITableViewController {
         super.viewDidLoad()
         loadData()
     }
-    
 
-    
-    // MARK: load data
     
     func loadData() {
         
-        let fm = NSFileManager()
+        FileController.sharedManager.activate()
+        
+        if let audioFiles = FileController.sharedManager.audioFilesSourceFiles {
+        
+            filesData = audioFiles
+        }
+        
+    }
+    
+    // MARK: load data
+    
+    func loadDataFromLocalEnumerator() {
+        
+        let fm = NSFileManager.defaultManager()
         
         let resourceKeys = [NSURLNameKey, NSURLIsDirectoryKey, NSURLCreationDateKey,NSURLContentAccessDateKey]
-//        NSDirectoryEnumerator
         let docsDirectory = DocumentsDirectory as NSURL
         let directoryEnumerator = fm.enumeratorAtURL(docsDirectory, includingPropertiesForKeys: resourceKeys, options: [.SkipsHiddenFiles], errorHandler: nil)!
         
@@ -83,7 +94,6 @@ class FilesTableViewController: UITableViewController {
                 
                 do {
                     let attr : NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(fileURL.path!)
-                    
                     if let _attr = attr {
                         fileSize = _attr.fileSize()
                     }
@@ -91,17 +101,12 @@ class FilesTableViewController: UITableViewController {
                     print("Error: \(error)")
                 }
                 
-                
-                let fileData = FileInfo(name: name, date: createDate, url: fileURL, size: fileSize)
+                let fileData = FileInfo(name: name, date: createDate, url: fileURL, size: fileSize, duration: 0.0)
                 fileInfos.append(fileData)
-                
-//                print("\(fileData)\n")
             }
         }
         
         filesData = fileInfos
-        
-        
     }
     
 
@@ -126,7 +131,6 @@ class FilesTableViewController: UITableViewController {
 
         // Configure the cell...
 
-        let df = NSDateFormatter()
         df.dateStyle = .MediumStyle
         df.timeStyle = .ShortStyle
         
@@ -134,19 +138,27 @@ class FilesTableViewController: UITableViewController {
         
         var fileSizeStr : String
         
-//        let timeString = String(format: "The current time is %02d:%02d", 10, 4)
-        
         if (fileInfo.size > (1024 * 1024)) {
-            let sizeNumber = fileInfo.size/(1024 * 1024)
-            fileSizeStr = "\(sizeNumber) mb"
+            //let sizeNumber = fileInfo.size/(1024 * 1024)
+            //fileSizeStr = "\(sizeNumber) mb"
+
+            fileSizeStr = String(format: "%.2f mb",Double(fileInfo.size)/(1024 * 1024) )
+            
         } else if (fileInfo.size > 1024) {
-            let sizeNumber = fileInfo.size/1024
-            fileSizeStr = "\(sizeNumber) kb"
+//            let sizeNumber = fileInfo.size/1024
+//            fileSizeStr = "\(sizeNumber) kb"
+            
+            fileSizeStr = String(format: "%.2f kb",Double(fileInfo.size)/1024 )
+            
         } else {
             let sizeNumber = fileInfo.size
             fileSizeStr = "\(sizeNumber) bytes"
         }
         
+//        fileSizeStr += " \(fileInfo.duration) secs"
+        let durationString = String(format: "  %.3f secs", fileInfo.duration)
+
+        fileSizeStr += durationString
 
         cell.textLabel!.text = fileInfo.name
         
@@ -155,9 +167,6 @@ class FilesTableViewController: UITableViewController {
         
         return cell
     }
-    
-    
-    
     
     
     /*
@@ -206,38 +215,3 @@ class FilesTableViewController: UITableViewController {
     */
 
 }
-
-
-
-
-
-
-/*
-BOOL recentsFirst = YES;
-NSArray *sortedArray = [_clipsFilesData sortedArrayUsingComparator: ^(id obj1, id obj2) {
-NSDate *createDate1;
-NSDate *createDate2;
-NSError *error;
-[(NSURL *)obj1[@"furl"] getResourceValue:&createDate1 forKey:NSURLCreationDateKey error:&error];
-[(NSURL *)obj2[@"furl"] getResourceValue:&createDate2 forKey:NSURLCreationDateKey error:&error];
-
-NSComparisonResult cresult = [createDate1 compare:createDate2];
-// simple date compare cause recents last
-if (recentsFirst) {
-// swap for Recent first
-if (cresult == NSOrderedAscending) {
-cresult = NSOrderedDescending;
-} else if (cresult == NSOrderedDescending) {
-cresult = NSOrderedAscending;
-}
-}
-
-return cresult;
-}];
-
-[_filesData addObject:_finalsFilesData];
-[_filesData addObject:_mp3filesFilesData];
-[_filesData addObject:_recordingsFilesData];
-[_filesData addObject:[sortedArray mutableCopy]];
-*/
-

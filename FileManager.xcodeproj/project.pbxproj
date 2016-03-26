@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5537DA1A1CA4D9AE005CD5E7 /* NSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537DA191CA4D9AE005CD5E7 /* NSExtensions.swift */; };
+		5537DA1C1CA4DD8F005CD5E7 /* Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537DA1B1CA4DD8F005CD5E7 /* Kit.swift */; };
 		5561157A1C8A02D3009EC13F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556115791C8A02D3009EC13F /* AppDelegate.swift */; };
 		5561157C1C8A02D3009EC13F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5561157B1C8A02D3009EC13F /* ViewController.swift */; };
 		5561157F1C8A02D3009EC13F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5561157D1C8A02D3009EC13F /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 		5561159A1C8A02D3009EC13F /* FileManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556115991C8A02D3009EC13F /* FileManagerUITests.swift */; };
 		556115AC1C8A074E009EC13F /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556115AB1C8A074E009EC13F /* FilesTableViewController.swift */; };
 		556115EA1C8C963B009EC13F /* JKFileDownloadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556115E91C8C963B009EC13F /* JKFileDownloadController.swift */; };
+		557CC38A1CA0A2D000D9D30F /* JamMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557CC3891CA0A2D000D9D30F /* JamMasterTableViewController.swift */; };
+		557CC38C1CA3985A00D9D30F /* PlayerObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557CC38B1CA3985A00D9D30F /* PlayerObjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5537DA191CA4D9AE005CD5E7 /* NSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSExtensions.swift; sourceTree = "<group>"; };
+		5537DA1B1CA4DD8F005CD5E7 /* Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kit.swift; sourceTree = "<group>"; };
 		556115761C8A02D3009EC13F /* FileManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556115791C8A02D3009EC13F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5561157B1C8A02D3009EC13F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +57,8 @@
 		5561159B1C8A02D3009EC13F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556115AB1C8A074E009EC13F /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
 		556115E91C8C963B009EC13F /* JKFileDownloadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKFileDownloadController.swift; sourceTree = "<group>"; };
+		557CC3891CA0A2D000D9D30F /* JamMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JamMasterTableViewController.swift; sourceTree = "<group>"; };
+		557CC38B1CA3985A00D9D30F /* PlayerObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerObjects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,10 @@
 				556115851C8A02D3009EC13F /* Info.plist */,
 				556115AB1C8A074E009EC13F /* FilesTableViewController.swift */,
 				556115E91C8C963B009EC13F /* JKFileDownloadController.swift */,
+				557CC3891CA0A2D000D9D30F /* JamMasterTableViewController.swift */,
+				557CC38B1CA3985A00D9D30F /* PlayerObjects.swift */,
+				5537DA191CA4D9AE005CD5E7 /* NSExtensions.swift */,
+				5537DA1B1CA4DD8F005CD5E7 /* Kit.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -263,8 +275,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				556115AC1C8A074E009EC13F /* FilesTableViewController.swift in Sources */,
+				5537DA1A1CA4D9AE005CD5E7 /* NSExtensions.swift in Sources */,
 				5561157C1C8A02D3009EC13F /* ViewController.swift in Sources */,
 				556115EA1C8C963B009EC13F /* JKFileDownloadController.swift in Sources */,
+				5537DA1C1CA4DD8F005CD5E7 /* Kit.swift in Sources */,
+				557CC38C1CA3985A00D9D30F /* PlayerObjects.swift in Sources */,
+				557CC38A1CA0A2D000D9D30F /* JamMasterTableViewController.swift in Sources */,
 				5561157A1C8A02D3009EC13F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +508,7 @@
 				556115A01C8A02D3009EC13F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		556115A11C8A02D3009EC13F /* Build configuration list for PBXNativeTarget "FileManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +517,7 @@
 				556115A31C8A02D3009EC13F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		556115A41C8A02D3009EC13F /* Build configuration list for PBXNativeTarget "FileManagerUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +526,7 @@
 				556115A61C8A02D3009EC13F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
