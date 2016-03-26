@@ -177,7 +177,6 @@ class FileController {
                 
                 
                 let fileData = FileInfo(name: name, date: createDate, url: fileURL, size: fileSize, duration: 0.0)
-                //fileData.name = "joker"
                 
                 if name.hasPrefix("mp3file_") {
                     collectMP3Files += [fileData]
@@ -188,7 +187,7 @@ class FileController {
                 } else if name.hasPrefix("trimmed") {
                     collectTrimmedFiles += [fileData]
                 } else if name.hasPrefix("final") {
-                    
+                    collectOtherFiles += [fileData]
                 } else if name.hasPrefix("clip") {
                     collectClipFiles += [fileData]
                 } else {
@@ -197,7 +196,6 @@ class FileController {
                 
                 fileInfos.append(fileData)
                 
-                //                print("\(fileData)\n")
             }
         }
         
@@ -496,11 +494,14 @@ class FileController {
     
     
     func audioLengthForFile(fileURL: NSURL) -> Double {
+        
         var result: Double = 0.0
         
         do {
             let audioFile = try AVAudioFile(forReading: fileURL)
-            let processingFormat = audioFile.processingFormat
+            //let processingFormat = audioFile.processingFormat
+            let processingFormat = audioFile.fileFormat
+            
             result = Double(audioFile.length) / processingFormat.sampleRate;
         } catch {
             print("Error: \(error) \n\(fileURL)")
@@ -521,10 +522,6 @@ class FileController {
 //    return result;
 //    }
     
-    
-
-    
-    
 }
 
 
@@ -535,68 +532,11 @@ class FileController {
 //        }
 
 
-
-/*
- - (void)loadFilesystemData {
- 
- // SYSTEM GENERATED files
- 
- _mp3filesFilesData = [NSMutableArray new];
- _recordingsFilesData = [NSMutableArray new];
- _clipsFilesData = [NSMutableArray new];
- _finalsFilesData = [NSMutableArray new];
- _trimmedFilesData = [NSMutableArray new];
- 
- NSFileManager *fm = [NSFileManager defaultManager];
- 
- // DOCUMENTS Directory
- NSDirectoryEnumerator *dirEnum = [fm enumeratorAtURL:[NSURL fileURLWithPath:[self documentsDirectoryPath]]
- includingPropertiesForKeys:@[NSURLCreationDateKey,NSURLContentAccessDateKey]
- options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
- errorHandler:^BOOL(NSURL *url,NSError *error){
- return YES;
- }];
- NSURL *fileURL;
- while ((fileURL = [dirEnum nextObject])) {
- NSError *error;
- NSDictionary *info = [fm attributesOfItemAtPath:[fileURL path] error:&error];
- 
- if (info[NSFileType] == NSFileTypeDirectory) {
- // SKIP Directory
- } else {
- NSString *fname = [fileURL lastPathComponent];
- NSDictionary *recordInfo = @{@"furl":fileURL,@"fsize":info[NSFileSize]};
- 
- if ([fname hasPrefix:@"mp3file_"]) {
- [_mp3filesFilesData addObject:recordInfo];
- }
- else if ([fname hasPrefix:@"recording_"] || [fname hasPrefix:@"avrec_"]){
- [_recordingsFilesData addObject:recordInfo];
- }
- else if ([fname hasPrefix:@"clip"]) {
- [_clipsFilesData addObject:recordInfo];
- }
- else if ([fname hasPrefix:@"trimmed"]) {
- [_trimmedFilesData addObject:recordInfo];
- }
- else if ([fname hasPrefix:@"final"]) {
- [_finalsFilesData addObject:recordInfo];
- }
- 
- }
- }
- 
- */
-
-
 /*
  typedef void (^JWFileImageCompletionHandler)(UIImage *image); //  block (^JWClipExportAudioCompletionHandler)(void);
  
- 
  @interface JWFileController : NSObject
- 
  + (JWFileController *)sharedInstance;
- 
  -(void)update;
  -(void)reload;
  -(void)readFsData;

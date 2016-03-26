@@ -10,14 +10,6 @@ import UIKit
 
 class FilesTableViewController: UITableViewController {
     
-//    struct FileInfo {
-//        var name: String
-//        var date: NSDate
-//        var url: NSURL
-//        var size: UInt64
-//    }
-
-    
     struct CellFileInfo {
         var title: String
         var detailTitle: String
@@ -28,7 +20,6 @@ class FilesTableViewController: UITableViewController {
     let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
 //    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("meals")
     
-    
     let df = NSDateFormatter()
 
     // MARK: Properties
@@ -38,11 +29,12 @@ class FilesTableViewController: UITableViewController {
     var cellData: [CellFileInfo] = []
     
 
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
     }
-
     
     func loadData() {
         
@@ -52,7 +44,6 @@ class FilesTableViewController: UITableViewController {
         
             filesData = audioFiles
         }
-        
     }
     
     // MARK: load data
