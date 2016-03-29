@@ -29,9 +29,24 @@ class ImageCache : NSCache {
         NSNotificationCenter.defaultCenter().removeObserver(observer)
     }
 }
+//use it as follows:
+//ImageCache.sharedManager.setObject(image, forKey: "foo")
+//let image = ImageCache.sharedManager.objectForKey("foo") as? UIImage
 
 
 
+/**
+ File information. Location in filesystem. Size, Date, duration
+ 
+ notable properties
+ 
+ *duration* length in seconds
+ 
+ *name* name of file
+ 
+ *url* location on disk
+ 
+ */
 
 struct FileInfo {
     var name: String
@@ -40,10 +55,6 @@ struct FileInfo {
     var size: UInt64
     var duration: Double // length in seconds
 }
-
-//use it as follows:
-//ImageCache.sharedManager.setObject(image, forKey: "foo")
-//let image = ImageCache.sharedManager.objectForKey("foo") as? UIImage
 
 
 /**
@@ -77,8 +88,12 @@ class FileController {
     var audioFilesTrimmedFiles: [FileInfo]?
     var audioFilesRecordedFiles: [FileInfo]?
 
-    let sourceAudioFilesDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent("Source")
-    let jamTracksDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent("JamTracks")
+    
+    static let sourceAudioFilesRelativeDirectoryPath = "Source"
+    static let jamTracksRelativeDirectoryPath = "JamTracks"
+    
+    let sourceAudioFilesDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent(sourceAudioFilesRelativeDirectoryPath)
+    let jamTracksDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent(jamTracksRelativeDirectoryPath)
     let jamTracksDownloadedDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent("JamTrackDownloads")
     let downloadsDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent("Downloads")
     let trashDirectoryPath = DocumentsDirectory.URLByAppendingPathComponent(".trash")
@@ -102,22 +117,37 @@ class FileController {
     
     
     // MARK: load data
+    
+    private func loadData() {
+        loadData(documentsDirectory)
+    }
+    
+    private func loadDataSourceAudioFiles() {
+        loadData(sourceAudioFilesDirectoryPath)
+    }
+
+    private func loadDataDownloads() {
+        loadData(inBoxDirectoryPath)
+        loadData(downloadsDirectoryPath)
+    }
+
+    private func loadTrash() {
+        loadData(trashDirectoryPath)
+    }
 
     /**
      Gets file data for target Directory
+     
      */
-
-    private func loadData() {
+    private func loadData(targetDirectory: NSURL) {
         
         let fm = NSFileManager()
         
-        let tragetDirectory = documentsDirectory as NSURL
+        //let tragetDirectory = documentsDirectory as NSURL
         
         let resourceKeys = [NSURLNameKey, NSURLIsDirectoryKey, NSURLCreationDateKey,NSURLContentAccessDateKey]
         
-        let directoryEnumerator = fm.enumeratorAtURL(tragetDirectory, includingPropertiesForKeys: resourceKeys, options: [.SkipsHiddenFiles], errorHandler: nil)!
-        
-        //        var fileURLs: [NSURL] = []
+        let directoryEnumerator = fm.enumeratorAtURL(targetDirectory, includingPropertiesForKeys: resourceKeys, options: [.SkipsHiddenFiles], errorHandler: nil)!
         
         var fileInfos: [FileInfo] = []
         
@@ -138,11 +168,11 @@ class FileController {
             }
             
             if isDirectory {
+                directoryEnumerator.skipDescendants()
+
 //                if name == "_extras" {
 //                    directoryEnumerator.skipDescendants()
 //                }
-                directoryEnumerator.skipDescendants()
-
                 
             } else {
                 
@@ -297,14 +327,70 @@ class FileController {
 //                    $0.duration = audioLengthForFile($0.url)
 //                    return $0
 //                }
+
         
-        for index in 0..<audioFilesSourceFiles!.count {
-            var file = audioFilesSourceFiles![index]
-            
-            file.duration = audioLengthForFile(file.url)
-            
-            audioFilesSourceFiles![index]=file
+        // COMPUTE duration for each item
+        
+        if let fileCount = audioFilesSourceFiles?.count {
+            for index in 0..<fileCount {
+                if let fileURL = audioFilesSourceFiles?[index].url {
+                    audioFilesSourceFiles![index].duration = audioLengthForFile(fileURL)
+                }
+            }
         }
+
+//        let file = audioFilesSourceFiles![index]
+//        audioFilesSourceFiles![index].duration = audioLengthForFile(file.url)
+
+        
+        
+//        for index in 0..<audioFilesSourceFiles!.count {
+//            var file = audioFilesSourceFiles![index]
+//            file.duration = audioLengthForFile(file.url)
+//            audioFilesSourceFiles![index]=file
+//        }
+        
+        
+        // Same day checks
+        
+        if let fileCount = audioFilesSourceFiles?.count {
+
+            var groupYear: Int = 0
+            var groupMonth: Int = 0
+            var groupDay: Int = 0
+
+            var groupCounts: Int = 0
+            
+            var groupedDates = [NSDate]()
+
+            for index in 0..<fileCount {
+                
+                if let date = audioFilesSourceFiles?[index].date {
+
+                    let calendar = NSCalendar.currentCalendar()
+                    let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+                    
+                    let year =  components.year
+                    let month = components.month
+                    let day = components.day
+
+                    if year == groupYear && month == groupMonth && day == groupDay {
+                        // repeat
+                        
+                    } else {
+                        groupDay = day
+                        groupMonth = month
+                        groupYear = year
+                        
+                        groupCounts += 1
+                        groupedDates += [date]
+                    }
+                }
+                
+            }
+        }
+        
+        
         
 
         // RECORDED AUDIO FILES
@@ -501,26 +587,13 @@ class FileController {
             let audioFile = try AVAudioFile(forReading: fileURL)
             //let processingFormat = audioFile.processingFormat
             let processingFormat = audioFile.fileFormat
-            
             result = Double(audioFile.length) / processingFormat.sampleRate;
         } catch {
-            print("Error: \(error) \n\(fileURL)")
+            print("Error: \(error) \nFILENAME:\(fileURL.lastPathComponent!)")
         }
         
         return result;
     }
-    
-//    double result = 0;
-//    NSError *error = nil;
-//    AVAudioFile *audioFile = [[AVAudioFile alloc] initForReading:fileURL error:&error];
-//    if (audioFile && error == nil) {
-//    AVAudioFormat *processingFormat = [audioFile processingFormat];
-//    result = audioFile.length / processingFormat.sampleRate;
-//    } else {
-//    NSLog(@"error in audio file %@",[fileURL lastPathComponent]);
-//    }
-//    return result;
-//    }
     
 }
 
