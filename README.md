@@ -1,6 +1,15 @@
 # FileManager
 Read disk files (Swift)
+This project has been expanded to include more work done in porting JamWith from Objective-C to Swift
+A Filemanager that processes files on disk and can readily sort them byDate and Size
+A FileDownloader to download mp3 file
+A Master table listing all User JamTracks with 
+A ViewController that demonstrates use of animation with constraints, as well as UIDynamic behavior (SnapBehavior)
+
+*description*
+
 Uses NSFileManager to enumerate files on disk
+
 
 extension NSURL {
 
@@ -20,4 +29,8 @@ In kit.swift
                 }
                 }
                 .sort { 
+
+
+FILEDownloader
+class JKFileDownloader: NSObject, NSURLSessionDelegate {
 
