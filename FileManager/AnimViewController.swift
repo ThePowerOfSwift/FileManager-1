@@ -35,11 +35,11 @@ class AnimViewController: UIViewController {
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             
             //self.animDown()
-            //self.animDownCompl()
+            self.animDownCompl()
             //self.animDownComplOptions()
             //self.animDownSprings()
             
-            self.snapToBottomLeft()
+            //self.snapToBottomLeft()
         }
     }
     
