@@ -10,7 +10,10 @@ A Master table listing all User JamTracks with
 
 A ViewController that demonstrates use of animation with constraints, as well as UIDynamic behavior (SnapBehavior)
 
-*description*
+
+Usage of try catch in iOS SDK where NSError was used in Objective-C api
+
+*descriptions*
 
 Uses NSFileManager to enumerate files on disk
 
