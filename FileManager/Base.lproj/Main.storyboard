@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRc-kA-3aK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRc-kA-3aK">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -54,7 +54,7 @@
         <!--Item-->
         <scene sceneID="537-r5-DRP">
             <objects>
-                <viewController id="MpT-5c-hvI" sceneMemberID="viewController">
+                <viewController id="MpT-5c-hvI" customClass="AnimViewController" customModule="FileManager" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="95o-iF-6ya"/>
                         <viewControllerLayoutGuide type="bottom" id="vGT-6a-9Gx"/>
@@ -62,9 +62,25 @@
                     <view key="view" contentMode="scaleToFill" id="YzO-Pt-cew">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anim View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUv-KJ-lTz">
+                                <rect key="frame" x="220" y="20" width="160" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vUv-KJ-lTz" firstAttribute="centerX" secondItem="YzO-Pt-cew" secondAttribute="centerX" id="ddl-n1-oXh"/>
+                            <constraint firstItem="vUv-KJ-lTz" firstAttribute="top" secondItem="95o-iF-6ya" secondAttribute="bottom" id="e4g-Rd-o0Z"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="9B9-Zm-A1q"/>
+                    <connections>
+                        <outlet property="animLabel" destination="vUv-KJ-lTz" id="Mq6-NJ-GSz"/>
+                        <outlet property="topLayoutConstraint" destination="e4g-Rd-o0Z" id="hay-nM-dd6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HPk-aS-H97" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

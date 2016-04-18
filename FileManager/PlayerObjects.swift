@@ -53,10 +53,6 @@ class JamTrack: NSObject, NSCoding {
         aCoder.encodeObject(tracks, forKey: propertyKey.tracksKey)
     }
     
-    //        var key: String?
-    //        var title: String?
-    //        var date: NSDate?
-    
     required convenience init?(coder aDecoder: NSCoder) {
         self.init()
         
@@ -75,12 +71,7 @@ class JamTrack: NSObject, NSCoding {
         if let jamTracks = aDecoder.decodeObjectForKey(propertyKey.tracksKey) as? [TrackObject] {
             tracks = jamTracks
         }
-        
-        
-        //            self.init(name:name, photo: photo, rating: rating)
     }
-    
-    
     
 }
 
@@ -139,25 +130,15 @@ class TrackObject: NSObject, NSCoding {
         aCoder.encodeDouble(startTime!, forKey: propertyKey.starTimeKey)
         aCoder.encodeObject(date, forKey: propertyKey.dateKey)
         aCoder.encodeObject(fileURL, forKey: propertyKey.fileURLKey)
-        
-        
+        aCoder.encodeObject(effects, forKey: propertyKey.effectsKey)
     }
-    
-    //        var key: String?
-    //        var title: String?
-    //        var startTime: Double?
-    //        var date: NSDate?
-    //        var type: PlayerType?
-    //        var fileURL: NSURL?
-    //        var effects = [String]()
-    
     
     required convenience init?(coder aDecoder: NSCoder) {
         
         self.init()
         
         if let trackKey = aDecoder.decodeObjectForKey(propertyKey.key) as? String {
-            self.key = trackKey
+            key = trackKey
         }
         
         if let trackTitle = aDecoder.decodeObjectForKey(propertyKey.titleKey) as? String {
@@ -176,6 +157,10 @@ class TrackObject: NSObject, NSCoding {
             
             
             fileURL = trackFileURL
+        }
+        
+        if let effectsForTrack = aDecoder.decodeObjectForKey(propertyKey.dateKey) as? [String] {
+            effects = effectsForTrack
         }
         
     }

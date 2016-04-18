@@ -10,6 +10,13 @@ enum PlayerType {
     case PlayerRecorder
 }
 
+enum EffectType {
+    case Reverb
+    case Distortion
+    case Delay
+    case EQ
+}
+
 
 // MARK: Jam Track Object
 
@@ -19,9 +26,11 @@ enum PlayerType {
   */
 
 class JamTrack {
+    // Key, Title, Date - Identifying info
     var key: String?
     var title: String?
     var date: NSDate?
+    
     var tracks = [TrackObject]()
 }
 
@@ -35,13 +44,16 @@ class JamTrack {
  */
 
 class TrackObject {
+    // Key, Title, Date - Identifying info
     var key: String?
     var title: String?
     var date: NSDate?
-    var startTime: Double? = 0.0
+
     var type: PlayerType?
+    var startTime: Double? = 0.0
+    
     var fileURL: NSURL?
-    var effects = [String]()
+    var effects = [JWEffects]()
 }
 
 
@@ -63,7 +75,6 @@ class JamSession {
 struct TracksInsetsA {
     var startInset: Double = 0.0
     var endInset: Double = 0.0
-    
 }
 
 /**
@@ -75,14 +86,17 @@ struct TracksInsetsA {
 struct TracksInsetsB {
     var startLocation: Double = 0.0 // in seconds
     var length: Double = 0.0  // in seconds
-    
-    
-    
 }
+
+// Effects
 
 struct JWEffects {
     var title: String?
-    
+    var type: EffectType
+    var byPass: boolean_t
+    var wetdry: Float
+    var preset: Int
+
 }
 
 extension JWEffects {
@@ -90,16 +104,34 @@ extension JWEffects {
 }
 
 
+// Player and Playable
+
 protocol Playable {
     func play()
 }
 
 
-struct JamTrackP: Playable {
+protocol AudioEngineAPI {
+    func addPlayer(forTrack: TrackObject)
+    func prepareToPlay(atPosition: Double)
+    func play()
+    func stop()
+}
+
+struct JamTrackPlayer: Playable {
+    
+    var jamTrack: JamTrack?
     
     func play() {
         
+        
     }
-    
 }
+
+//
+
+
+
+
+
 

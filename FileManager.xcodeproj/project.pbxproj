@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5537DA1A1CA4D9AE005CD5E7 /* NSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537DA191CA4D9AE005CD5E7 /* NSExtensions.swift */; };
 		5537DA1C1CA4DD8F005CD5E7 /* Kit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537DA1B1CA4DD8F005CD5E7 /* Kit.swift */; };
+		5537DA1E1CAD930B005CD5E7 /* AnimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537DA1D1CAD930B005CD5E7 /* AnimViewController.swift */; };
 		5561157A1C8A02D3009EC13F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556115791C8A02D3009EC13F /* AppDelegate.swift */; };
 		5561157C1C8A02D3009EC13F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5561157B1C8A02D3009EC13F /* ViewController.swift */; };
 		5561157F1C8A02D3009EC13F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5561157D1C8A02D3009EC13F /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		5537DA191CA4D9AE005CD5E7 /* NSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSExtensions.swift; sourceTree = "<group>"; };
 		5537DA1B1CA4DD8F005CD5E7 /* Kit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kit.swift; sourceTree = "<group>"; };
+		5537DA1D1CAD930B005CD5E7 /* AnimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimViewController.swift; sourceTree = "<group>"; };
 		556115761C8A02D3009EC13F /* FileManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		556115791C8A02D3009EC13F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5561157B1C8A02D3009EC13F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				556115821C8A02D3009EC13F /* LaunchScreen.storyboard */,
 				556115851C8A02D3009EC13F /* Info.plist */,
 				556115AB1C8A074E009EC13F /* FilesTableViewController.swift */,
+				5537DA1D1CAD930B005CD5E7 /* AnimViewController.swift */,
 				556115E91C8C963B009EC13F /* JKFileDownloadController.swift */,
 				557CC3891CA0A2D000D9D30F /* JamMasterTableViewController.swift */,
 				557CC38B1CA3985A00D9D30F /* PlayerObjects.swift */,
@@ -279,6 +282,7 @@
 				5561157C1C8A02D3009EC13F /* ViewController.swift in Sources */,
 				556115EA1C8C963B009EC13F /* JKFileDownloadController.swift in Sources */,
 				5537DA1C1CA4DD8F005CD5E7 /* Kit.swift in Sources */,
+				5537DA1E1CAD930B005CD5E7 /* AnimViewController.swift in Sources */,
 				557CC38C1CA3985A00D9D30F /* PlayerObjects.swift in Sources */,
 				557CC38A1CA0A2D000D9D30F /* JamMasterTableViewController.swift in Sources */,
 				5561157A1C8A02D3009EC13F /* AppDelegate.swift in Sources */,
